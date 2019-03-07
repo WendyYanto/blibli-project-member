@@ -9,11 +9,11 @@ import java.util.List;
 public interface MemberService {
     Member create(Member member);
 
-    Member findById(int id);
+    Member findById(Long id);
 
     List<Member> getAll();
 
-    Member update(Member member, int id);
+    Member update(Member member, Long id);
 
-    Member delete(int id);
+    Member delete(Long id);
 }

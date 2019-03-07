@@ -40,7 +40,7 @@ public class MemberController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Member findById(@PathVariable("id") int id){
+    public Member findById(@PathVariable("id") Long id){
         return memberService.findById(id);
     }
 
@@ -50,8 +50,8 @@ public class MemberController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public Member updateProduct(@PathVariable("id") int id, @RequestBody Member product){
-        return memberService.update(product,id);
+    public Member updateProduct(@PathVariable("id") Long id, @RequestBody Member member){
+        return memberService.update(member,id);
     }
 
     @RequestMapping(
@@ -59,7 +59,7 @@ public class MemberController {
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Member deleteProduct(@PathVariable("id") int id){
+    public Member deleteProduct(@PathVariable("id") Long id){
         return memberService.delete(id);
     }
 }

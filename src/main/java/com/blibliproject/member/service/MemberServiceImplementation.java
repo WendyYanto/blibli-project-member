@@ -1,33 +1,31 @@
 package com.blibliproject.member.service;
 
 import com.blibliproject.member.model.Member;
+import com.blibliproject.member.repository.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MemberServiceImplementation implements MemberService{
 
-    private List<Member> data = new ArrayList<Member>();
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Override
     public Member create(Member member) {
-        if(data.size() > 0 && findById(member.getId()) != null){
-            return null;
-        }
-
-        data.add(member);
-        return member;
+        return memberRepository.save(member);
     }
 
     @Override
-    public Member findById(int id) {
+    public Member findById(Long id) {
+        Optional<Member> data = memberRepository.findById(id);
 
-        for(int i=0;i<data.size();i++){
-            if(data.get(i).getId() == id){
-                return data.get(i);
-            }
+        if(data.isPresent()){
+            return data.get();
         }
 
         return null;
@@ -35,37 +33,33 @@ public class MemberServiceImplementation implements MemberService{
 
     @Override
     public List<Member> getAll() {
-        if(data.size() == 0){
-            return null;
-        }
-
-        return data;
+        return memberRepository.findAll();
     }
 
     @Override
-    public Member update(Member member, int id) {
+    public Member update(Member member, Long id) {
+
         Member current = findById(id);
 
         if(current != null){
-            current.setName(member.getName());
-            current.setAge(member.getAge());
-            current.setEmail(member.getEmail());
-            current.setPassword(member.getPassword());
-            return current;
+            current.setId(id);
+            return memberRepository.save(current);
         }
 
         return null;
     }
 
     @Override
-    public Member delete(int id) {
+    public Member delete(Long id) {
+
         Member current = findById(id);
 
         if(current != null){
-            data.remove(current);
+            memberRepository.delete(current);
             return current;
         }
 
         return null;
     }
+
 }
