@@ -2,31 +2,30 @@ package com.blibliproject.member.controller;
 
 import com.blibliproject.member.model.Member;
 import com.blibliproject.member.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+
 public class MemberController {
 
+    @Autowired
     private MemberService memberService;
 
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
-    }
-
     @RequestMapping(
-            value = "/members",
+            value = "/api/members",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public List<Member> getAllProducts(){
+    public List<Member> getAllMembers(){
         return memberService.getAll();
     }
 
     @RequestMapping(
-            value = "/members",
+            value = "/api/members",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
@@ -36,7 +35,7 @@ public class MemberController {
     }
 
     @RequestMapping(
-            value = "/members/{id}",
+            value = "/api/members/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -45,21 +44,21 @@ public class MemberController {
     }
 
     @RequestMapping(
-            value = "/members/edit/{id}",
+            value = "/api/members/edit/{id}",
             method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public Member updateProduct(@PathVariable("id") Long id, @RequestBody Member member){
+    public Member updateMember(@PathVariable("id") Long id, @RequestBody Member member){
         return memberService.update(member,id);
     }
 
     @RequestMapping(
-            value = "/members/{id}",
+            value = "/api/members/{id}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Member deleteProduct(@PathVariable("id") Long id){
+    public Member deleteMember(@PathVariable("id") Long id){
         return memberService.delete(id);
     }
 }

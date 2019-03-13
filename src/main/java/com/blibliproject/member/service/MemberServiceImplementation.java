@@ -5,20 +5,21 @@ import com.blibliproject.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class MemberServiceImplementation implements MemberService{
 
-    @Autowired
     private MemberRepository memberRepository;
 
-    @Override
-    public Member create(Member member) {
-        return memberRepository.save(member);
+    @Autowired
+    public MemberServiceImplementation(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
+
+    @Override
+    public Member create(Member member) { return memberRepository.save(member);}
 
     @Override
     public Member findById(Long id) {
@@ -42,8 +43,8 @@ public class MemberServiceImplementation implements MemberService{
         Member current = findById(id);
 
         if(current != null){
-            current.setId(id);
-            return memberRepository.save(current);
+            member.setId(id);
+            return memberRepository.save(member);
         }
 
         return null;
