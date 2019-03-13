@@ -1,5 +1,6 @@
 package com.blibliproject.member.controller;
 
+import com.blibliproject.member.model.ApiKey;
 import com.blibliproject.member.model.Member;
 import com.blibliproject.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,14 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
+
+    @RequestMapping(
+        value = "/members",
+        method = RequestMethod.GET
+    )
+    public String check(ApiKey apiKey){
+        return "Hello World";
+    }
 
     @RequestMapping(
             value = "/api/members",

@@ -18,22 +18,16 @@ import javax.validation.constraints.NotBlank;
 
 public class Member {
     @Id
-    @NotBlank
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @NotBlank
     private String name;
 
     @Email
-    @NotBlank
     private String email;
 
     @Length(min = 6)
-    @NotBlank
     private String password;
 
-    @NumberFormat
     private int age;
-
 }
